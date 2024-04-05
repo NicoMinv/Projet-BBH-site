@@ -35,7 +35,7 @@ contract Trading is Ownable {
         tokenRegistry = TokenRegistry(_tokenRegistryAddress);
     }
 
-    /// @notice Permet au propriétaire du contrat de mettre à jour le prix d'un token en Ether
+    /// @notice Nous permet de mettre à jour le prix d'un token en Ether
     function setTokenPriceInEther(uint256 _newTokenPriceInEther) external onlyOwner {
         tokenPriceInEther = _newTokenPriceInEther;
     }
