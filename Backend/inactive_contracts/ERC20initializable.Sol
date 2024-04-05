@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: MIT
+//pragma solidity >=0.8.0 <0.8.25;
+
+//import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+//import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
+
+/**
+ * @title ERC20Initializable
+ */
+//contract ERC20Initializable is ERC20, Initializable {
+
+    //function initialize(string memory name_, string memory symbol_) public initializer {
+        //_name = name_;
+        //_symbol = symbol_;
+    //}
+//}
