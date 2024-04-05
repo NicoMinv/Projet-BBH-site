@@ -17,7 +17,7 @@ contract SimpleERC20Token is ERC20 {
     }
 }
 
-/// @notice Permet la création de tokens ERC20 dans un contexte de tokenisation d'actifs.
+/// @notice Permet la création de tokens ERC20 pour la tokenisation d'actifs.
 contract AssetTokenization is Ownable {
     IdentityRegistry private identityRegistry;
     Compliance private compliance;
