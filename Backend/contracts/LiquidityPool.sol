@@ -32,7 +32,9 @@ contract LiquidityPool is Ownable {
         usdtToken = IERC20(_usdtAddress);
         tradingContract = _tradingContract;
         lendingContract = _lendingContract;
-    }
+    }   
+
+            /// ----------------------- Pour les particuliers qui veulent envoyés ou retirer ce qu'ils ont envoyés au pool--------------------///
 
     /// @notice Permet aux utilisateurs d'ajouter de la liquidité en USDT au pool.
     /// @param _amount Montant d'USDT à déposer.
@@ -57,7 +59,7 @@ contract LiquidityPool is Ownable {
         emit LiquidityAdded(msg.sender, msg.value, false);
     }
 
-    /// @notice Permet aux utilisateurs de retirer leur liquidité en Ether du pool. C'est pour les particuliers qui ont envoyés au contrat.
+    /// @notice Permet aux utilisateurs de retirer leur liquidité en Ether du pool. 
     /// @param _amount Montant d'Ether à retirer
     function removeEtherLiquidity(uint256 _amount) external {
         require(etherDeposits[msg.sender] >= _amount, "Insufficient balance");
