@@ -44,7 +44,7 @@ contract AssetTokenization is Ownable {
         // Vérifie que la création est conforme aux règles de compliance.
         require(compliance.checkCompliance(msg.sender, address(this), 0), unicode"AssetTokenization: Création non conforme.");
 
-        // Crée un nouveau token ERC20 et enregistre son adresse dans le registre des tokens.
+        // Crée un nouveau token ERC20 et enregistre son adresse dans le registre des tokens Tokenregistry.sol
         SimpleERC20Token newToken = new SimpleERC20Token(name, symbol);
         tokenRegistry.registerToken(name, symbol, address(newToken));
 
