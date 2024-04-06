@@ -1,0 +1,22 @@
+.menuItem {
+    font-size: 18px;
+    height: 48px;
+    cursor: pointer;
+}
+
+.selected {
+    color: cornflowerblue;
+    border-bottom: 3px solid cornflowerblue;
+
+}
+
+.borderLeft {
+    height: 24px;
+    border: unset;
+    padding-left: 12px;
+
+}
+
+.borderLeftSelected {
+    border-left: 3px solid cornflowerblue;
+}

@@ -1,6 +1,7 @@
 const hre = require("hardhat");
 
 async function main() {
+  console.log('start')
   // Récupère les signers
   const [deployer] = await hre.ethers.getSigners();
   
@@ -8,12 +9,12 @@ async function main() {
 
   // Déploiement de IdentityRegistry
   const IdentityRegistry = await hre.ethers.getContractFactory("IdentityRegistry");
+  console.log('Ident', IdentityRegistry)
   const identityRegistry = await IdentityRegistry.deploy(deployer.address);
-  console.log("IdentityRegistry deployed to:", identityRegistry.address);
 
   // Déploiement de Compliance
   const Compliance = await hre.ethers.getContractFactory("Compliance");
-  const compliance = await Compliance.deploy(identityRegistry.address, deployer.address);
+  const compliance = await Compliance.deploy(identityRegistry.target, deployer.address);
   console.log("Compliance deployed to:", compliance.address);
 
   // Déploiement de TokenRegistry
