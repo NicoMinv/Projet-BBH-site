@@ -7,6 +7,12 @@ import "./Compliance.sol";
 import "./TokenRegistry.sol";
 import "./LiquidityPool.sol";
 
+/// @notice On va appeler une interface pour LiquidityPool
+interface ILiquidityPool {
+    // On déclare ici seulement la fonction dont on a besoin de LiquidityPool
+    function provideLiquidityTo(address _to, uint256 _amount, bool isUSDT) external;
+}
+
 /// @title Contrat de gestion des prêts
 /// @notice Ce contrat gère la création, le suivi et le remboursement des prêts sur notre plateforme.
 contract Lending is Ownable {
@@ -25,7 +31,8 @@ contract Lending is Ownable {
     /// @dev Références aux contrats pour les vérifications et les opérations.
     Compliance public compliance;
     TokenRegistry public tokenRegistry;
-    LiquidityPool public liquidityPool;
+    /// @dev Pour LiquidityPool, on utilise l'interface plutôt que le type de contrat directement
+    ILiquidityPool public liquidityPool;
 
     /// @notice Événement qui vient signifier la création d'un nouveau prêt
     event LoanCreated(address indexed borrower, uint256 principal, uint256 interestRate, uint256 startTime);
@@ -35,9 +42,9 @@ contract Lending is Ownable {
 
     /// @notice Initialise le contrat avec les adresses des autres contrats 
     constructor(address _complianceAddress, address _tokenRegistryAddress, address _liquidityPoolAddress, address initialOwner) Ownable(initialOwner) {
+        liquidityPool = ILiquidityPool(_liquidityPoolAddress);
         compliance = Compliance(_complianceAddress);
         tokenRegistry = TokenRegistry(_tokenRegistryAddress);
-        liquidityPool = LiquidityPool(_liquidityPoolAddress);
     }
 
     /// @notice Créer un prêt pour un emprunteur avec un montant principal et un taux d'intérêt spécifié

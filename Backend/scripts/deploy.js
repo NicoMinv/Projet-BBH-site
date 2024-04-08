@@ -1,40 +1,37 @@
 const hre = require("hardhat");
 
 async function main() {
-  console.log('start')
-  // Récupère les signers
+  console.log('Début du déploiement');
   const [deployer] = await hre.ethers.getSigners();
-  
-  console.log("Deploying contracts with the account:", deployer.address);
+  console.log("Déploiement des contrats avec le compte:", deployer.address);
 
   // Déploiement de IdentityRegistry
   const IdentityRegistry = await hre.ethers.getContractFactory("IdentityRegistry");
-  console.log('Ident', IdentityRegistry)
-  const identityRegistry = await IdentityRegistry.deploy(deployer.address);
-
-  // Déploiement de Compliance
-  const Compliance = await hre.ethers.getContractFactory("Compliance");
-  const compliance = await Compliance.deploy(identityRegistry.target, deployer.address);
-  console.log("Compliance deployed to:", compliance.address);
+  const identityRegistry = await IdentityRegistry.deploy();
+  await identityRegistry.deployed();
+  console.log("IdentityRegistry déployé à:", identityRegistry.address);
 
   // Déploiement de TokenRegistry
   const TokenRegistry = await hre.ethers.getContractFactory("TokenRegistry");
-  const tokenRegistry = await TokenRegistry.deploy(deployer.address);
-  console.log("TokenRegistry deployed to:", tokenRegistry.address);
+  const tokenRegistry = await TokenRegistry.deploy();
+  await tokenRegistry.deployed();
+  console.log("TokenRegistry déployé à:", tokenRegistry.address);
 
- 
-  const usdtAddress = "adresse_du_token_USDT"; // A voir si vraiment nécessaire pour le MVP
+  // Déploiement de Compliance
+  const Compliance = await hre.ethers.getContractFactory("Compliance");
+  const compliance = await Compliance.deploy(identityRegistry.address);
+  await compliance.deployed();
+  console.log("Compliance déployé à:", compliance.address);
 
-  // Déploiement de Trading
-  const Trading = await hre.ethers.getContractFactory("Trading");
-  const trading = await Trading.deploy(usdtAddress, compliance.address, tokenRegistry.address, deployer.address);
-  console.log("Trading deployed to:", trading.address);
+  // Ici, ajoutez le déploiement de AssetTokenization et Lending si nécessaire, en passant les bonnes adresses.
 
+  // Déploiement de Trading, LiquidityPool, etc., avec mise à jour des références si nécessaire.
+  
+  // Note: Assurez-vous de déployer et d'initialiser `Lending` et `AssetTokenization` avec les bonnes adresses avant de continuer.
+  
+  // Exemple pour `Trading` et `LiquidityPool`. Ajustez selon votre logique de déploiement.
 
-  // Déploiement de LiquidityPool
-  const LiquidityPool = await hre.ethers.getContractFactory("LiquidityPool");
-  const liquidityPool = await LiquidityPool.deploy(usdtAddress, trading.address, lending.address, deployer.address);
-  console.log("LiquidityPool deployed to:", liquidityPool.address);
+  // Continuez le déploiement et la mise à jour des références ici...
 }
 
 main().then(() => process.exit(0)).catch((error) => {
