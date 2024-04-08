@@ -1,40 +1,64 @@
-const hre = require("hardhat");
+const { ethers } = require("hardhat");
 
 async function main() {
-  console.log('Début du déploiement');
-  const [deployer] = await hre.ethers.getSigners();
-  console.log("Déploiement des contrats avec le compte:", deployer.address);
 
-  // Déploiement de IdentityRegistry
-  const IdentityRegistry = await hre.ethers.getContractFactory("IdentityRegistry");
+  // Deploy IdentityRegistry
+  const IdentityRegistry = await ethers.getContractFactory("IdentityRegistry");
   const identityRegistry = await IdentityRegistry.deploy();
   await identityRegistry.deployed();
-  console.log("IdentityRegistry déployé à:", identityRegistry.address);
+  console.log("IdentityRegistry deployed to:", identityRegistry.address);
 
-  // Déploiement de TokenRegistry
-  const TokenRegistry = await hre.ethers.getContractFactory("TokenRegistry");
+  // Deploy TokenRegistry
+  const TokenRegistry = await ethers.getContractFactory("TokenRegistry");
   const tokenRegistry = await TokenRegistry.deploy();
   await tokenRegistry.deployed();
-  console.log("TokenRegistry déployé à:", tokenRegistry.address);
+  console.log("TokenRegistry deployed to:", tokenRegistry.address);
 
-  // Déploiement de Compliance
-  const Compliance = await hre.ethers.getContractFactory("Compliance");
+  // Deploy Compliance
+  // Dépend de IdentityRegistry
+  const Compliance = await ethers.getContractFactory("Compliance");
   const compliance = await Compliance.deploy(identityRegistry.address);
   await compliance.deployed();
-  console.log("Compliance déployé à:", compliance.address);
+  console.log("Compliance deployed to:", compliance.address);
 
-  // Ici, ajoutez le déploiement de AssetTokenization et Lending si nécessaire, en passant les bonnes adresses.
 
-  // Déploiement de Trading, LiquidityPool, etc., avec mise à jour des références si nécessaire.
-  
-  // Note: Assurez-vous de déployer et d'initialiser `Lending` et `AssetTokenization` avec les bonnes adresses avant de continuer.
-  
-  // Exemple pour `Trading` et `LiquidityPool`. Ajustez selon votre logique de déploiement.
+  // On va rajouter ici une adresse d'implementation de token pour AssetTokenization, un token test qui va faire office de projet B.
+  const tokenImplementationAddress = "adresse_du_contrat_d'implémentation_du_token_projet_B";
 
-  // Continuez le déploiement et la mise à jour des références ici...
+  // Deploy AssetTokenization, dépend de IdentityRegistry, Compliance, et TokenRegistry
+  const AssetTokenization = await ethers.getContractFactory("AssetTokenization");
+  const assetTokenization = await AssetTokenization.deploy(tokenImplementationAddress, identityRegistry.address, compliance.address, tokenRegistry.address);
+  await assetTokenization.deployed();
+  console.log("AssetTokenization deployed to:", assetTokenization.address);
+
+  // On va fixer ici l'adresse de l'usdt. Ici c'est l'adresse USDT de Ethereum (Mainnet)
+  const usdtAddress = "0xdAC17F958D2ee523a2206206994597C13D831ec7";
+
+  // Deploy Trading
+  // Dépend de USDT, Compliance, TokenRegistry
+  const Trading = await ethers.getContractFactory("Trading");
+  const trading = await Trading.deploy(usdtAddress, compliance.address, tokenRegistry.address);
+  await trading.deployed();
+  console.log("Trading deployed to:", trading.address);
+
+  // Deploy LiquidityPool
+  // Dépend de USDT et Trading
+  const LiquidityPool = await ethers.getContractFactory("LiquidityPool");
+  const liquidityPool = await LiquidityPool.deploy(usdtAddress, trading.address);
+  await liquidityPool.deployed();
+  console.log("LiquidityPool deployed to:", liquidityPool.address);
+
+  // Deploy Lending
+  // Dépend de Compliance, TokenRegistry, LiquidityPool
+  const Lending = await ethers.getContractFactory("Lending");
+  const lending = await Lending.deploy(compliance.address, tokenRegistry.address, liquidityPool.address);
+  await lending.deployed();
+  console.log("Lending deployed to:", lending.address);
+
 }
 
-main().then(() => process.exit(0)).catch((error) => {
+// Gestion des erreurs
+main().catch((error) => {
   console.error(error);
-  process.exit(1);
+  process.exitCode = 1;
 });

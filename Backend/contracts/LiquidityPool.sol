@@ -27,11 +27,11 @@ contract LiquidityPool is Ownable {
     /// @notice Initialise le pool de liquidité avec les adresses de contrats nécessaires
     /// @param _usdtAddress Adresse du token USDT utilisé pour la liquidité.
     /// @param _tradingContract Adresse du contrat de trading pour permettre des interactions spécifiques
-    /// @param _lendingContract Adresse du contrat de prêt pour permettre des interactions spécifiques
-    constructor(address _usdtAddress, address _tradingContract, address _lendingContract, address initialOwner) Ownable(initialOwner) {
+    /// @param _lendingContract Adresse du contrat de prêt pour permettre des interactions spécifiques. 
+    /// @param _lendingContract Pour l'instant, comme il y a une circularité lors du déploiement entre LiquidityPool et Lending, j'ai enlevé ce param.
+    constructor(address _usdtAddress, address _tradingContract, address initialOwner) Ownable(initialOwner) {
         usdtToken = IERC20(_usdtAddress);
         tradingContract = _tradingContract;
-        lendingContract = _lendingContract;
     }   
 
             /// ----------------------- Pour les particuliers qui veulent envoyés ou retirer ce qu'ils ont envoyés au pool--------------------///
@@ -68,11 +68,14 @@ contract LiquidityPool is Ownable {
         emit LiquidityRemoved(msg.sender, _amount, false);
     }
 
+    // ----------------On met cette fonction de vérification en veille pour l'instant, elle me complique le déploiement pour la présentation. ------------- // 
+
+
     /// @notice Permet aux contrats de trading et de prêt d'accéder à la liquidité pour leurs opérations.
     /// @param _to Adresse destinataire de la liquidité.
     /// @param _amount Montant de la liquidité à fournir
     /// @param isUSDT Spécifie si la liquidité est en USDT (true) ou en Ether (false). Bool facilite parce que c'est binaire pour l'instant.
-    function provideLiquidityTo(address _to, uint256 _amount, bool isUSDT) external {
+    /*function provideLiquidityTo(address _to, uint256 _amount, bool isUSDT) external {
         require(msg.sender == tradingContract || msg.sender == lendingContract, "Unauthorized");
         if (isUSDT) {
             require(usdtToken.transfer(_to, _amount), "USDT Transfer failed");
@@ -80,6 +83,8 @@ contract LiquidityPool is Ownable {
             payable(_to).transfer(_amount);
         }
     }
+    */
+
 
     // Fonction de réception d'Ether pour permettre des dépôts 
     receive() external payable {}
