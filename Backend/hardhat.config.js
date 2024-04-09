@@ -1,10 +1,16 @@
 require("@nomicfoundation/hardhat-ethers");
+require('dotenv').config(); 
+
+const { SEPOLIA_INFURA_API_KEY, SEPOLIA_PRIVATE_KEY } = process.env;
 
 module.exports = {
-
   networks: {
     localhost: {
-      url: "http://127.0.0.1:8545"
+      url: "http://127.0.0.1:8545",
+    },
+    sepolia: {
+      url: `https://sepolia.infura.io/v3/${SEPOLIA_INFURA_API_KEY}`,
+      accounts: [`0x${SEPOLIA_PRIVATE_KEY}`]
     },
   },
   solidity: {

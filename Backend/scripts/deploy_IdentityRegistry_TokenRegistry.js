@@ -5,7 +5,7 @@ async function main() {
 
   console.log("Deploying contracts with the account:", deployer.address);
   // On vérifie ici que l'adresse du déployeur est celle qu'on veut utiliser
-  if(deployer.address !== "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266") {
+  if(deployer.address !== "0x1A66433B55341A25278Fa96E13eB5EDBe2c64F30") {
     throw new Error("Le compte du déployeur n'est pas celui attendu.");
   }
   
