@@ -1,0 +1,12 @@
+.menuContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.vertical {
+    flex-direction: column;
+    justify-content: center;
+    gap: 18px;
+}
