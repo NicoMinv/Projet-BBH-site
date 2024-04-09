@@ -12,13 +12,13 @@ async function main() {
   // Deploy IdentityRegistry avec l'adresse du déployeur comme owner initial
   const IdentityRegistry = await ethers.getContractFactory("IdentityRegistry");
   const identityRegistry = await IdentityRegistry.deploy(deployer.address);
-  console.log("IdentityRegistry deployed to:", identityRegistry.address);
+  console.log("IdentityRegistry deployed to:", identityRegistry.target);
 
 
   // Deploy TokenRegistry
   const TokenRegistry = await ethers.getContractFactory("TokenRegistry");
   const tokenRegistry = await TokenRegistry.deploy(deployer.address);
-  console.log("TokenRegistry deployed to:", tokenRegistry.address);
+  console.log("TokenRegistry deployed to:", tokenRegistry.target);
 
 
 

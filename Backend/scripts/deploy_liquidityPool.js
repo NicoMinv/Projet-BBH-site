@@ -14,7 +14,7 @@ async function main() {
   // Dépend de USDT et Trading
   const LiquidityPool = await ethers.getContractFactory("LiquidityPool");
   const liquidityPool = await LiquidityPool.deploy(usdtAddress, tradingAddress, deployer.address);
-  console.log("LiquidityPool deployed to:", liquidityPool.address);
+  console.log("LiquidityPool deployed to:", liquidityPool.target);
 }
 
 main().catch((error) => {

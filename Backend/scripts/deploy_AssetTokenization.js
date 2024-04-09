@@ -13,7 +13,7 @@ async function main() {
   // Deploy AssetTokenization, dépend de IdentityRegistry, Compliance, et TokenRegistry
   const AssetTokenization = await ethers.getContractFactory("AssetTokenization");
   const assetTokenization = await AssetTokenization.deploy(identityRegistryAddress, complianceAddress, tokenRegistryAddress, deployer.address);
-  console.log("AssetTokenization deployed to:", assetTokenization.address);
+  console.log("AssetTokenization deployed to:", assetTokenization.target);
 }
 
 main().catch((error) => {

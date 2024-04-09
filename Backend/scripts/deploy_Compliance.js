@@ -10,7 +10,7 @@ async function main() {
   // Deploy Compliance, dépend de IdentityRegistry
   const Compliance = await ethers.getContractFactory("Compliance");
   const compliance = await Compliance.deploy(identityRegistryAddress, deployer.address);
-  console.log("Compliance deployed to:", compliance.address);
+  console.log("Compliance deployed to:", compliance.target);
 }
 
 main().catch((error) => {

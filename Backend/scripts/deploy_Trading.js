@@ -14,7 +14,7 @@ async function main() {
   // Dépend de USDT, Compliance, TokenRegistry
   const Trading = await ethers.getContractFactory("Trading");
   const trading = await Trading.deploy(usdtAddress, complianceAddress, tokenRegistryAddress, deployer.address);
-  console.log("Trading deployed to:", trading.address);
+  console.log("Trading deployed to:", trading.target);
 }
 
 main().catch((error) => {

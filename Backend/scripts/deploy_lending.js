@@ -13,7 +13,7 @@ async function main() {
   // Dépend de Compliance, TokenRegistry, LiquidityPool
   const Lending = await ethers.getContractFactory("Lending");
   const lending = await Lending.deploy(complianceAddress, tokenRegistryAddress, liquidityPoolAddress, deployer.address);
-  console.log("Lending deployed to:", lending.address);
+  console.log("Lending deployed to:", lending.target);
 
 }
 
