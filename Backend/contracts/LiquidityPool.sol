@@ -13,7 +13,6 @@ contract LiquidityPool is Ownable {
 
     // Adresses des contrats de trading et de prêt pour les interactions
     address public tradingContract;
-    address public lendingContract;
 
     ///@notice Suivi des dépôts en USDT et en Ether pour chaque utilisateur.
     mapping(address => uint256) public usdtDeposits;
@@ -27,8 +26,8 @@ contract LiquidityPool is Ownable {
     /// @notice Initialise le pool de liquidité avec les adresses de contrats nécessaires
     /// @param _usdtAddress Adresse du token USDT utilisé pour la liquidité.
     /// @param _tradingContract Adresse du contrat de trading pour permettre des interactions spécifiques
-    /// @param _lendingContract Adresse du contrat de prêt pour permettre des interactions spécifiques. 
-    /// @param _lendingContract Pour l'instant, comme il y a une circularité lors du déploiement entre LiquidityPool et Lending, j'ai enlevé ce param.
+    /// param _lendingContract Adresse du contrat de prêt pour permettre des interactions spécifiques. 
+    /// param _lendingContract Pour l'instant, comme il y a une circularité lors du déploiement entre LiquidityPool et Lending, j'ai enlevé ce param.
     constructor(address _usdtAddress, address _tradingContract, address initialOwner) Ownable(initialOwner) {
         usdtToken = IERC20(_usdtAddress);
         tradingContract = _tradingContract;
@@ -72,9 +71,9 @@ contract LiquidityPool is Ownable {
 
 
     /// @notice Permet aux contrats de trading et de prêt d'accéder à la liquidité pour leurs opérations.
-    /// @param _to Adresse destinataire de la liquidité.
-    /// @param _amount Montant de la liquidité à fournir
-    /// @param isUSDT Spécifie si la liquidité est en USDT (true) ou en Ether (false). Bool facilite parce que c'est binaire pour l'instant.
+    /// param _to Adresse destinataire de la liquidité.
+    /// param _amount Montant de la liquidité à fournir
+    /// param isUSDT Spécifie si la liquidité est en USDT (true) ou en Ether (false). Bool facilite parce que c'est binaire pour l'instant.
     /*function provideLiquidityTo(address _to, uint256 _amount, bool isUSDT) external {
         require(msg.sender == tradingContract || msg.sender == lendingContract, "Unauthorized");
         if (isUSDT) {
