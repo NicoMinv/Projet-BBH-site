@@ -1,34 +1,40 @@
 import React, { useState } from 'react';
 import styles from "../page.module.css";
 import { ethers } from 'ethers';
-import abi from './AssetTokenization.json';
+import assetTokenization from './AssetTokenization.json';
+const abi = assetTokenization.abi;
 
-const contractAddress = "0x2A378d2c784056aD72F0c59D87E91EDB829e5e3F"
+
+
+const contractAddress = "0x4516E23507F4D3FfDA0e053817263B123c3f979B"
 
 const Marchand_de_biens = () => {
     const [creating, setCreating] = useState(false);
 
 
-    const createToken = async () => {
+    async function createToken() {
         if (typeof window.ethereum !== 'undefined') {
             try {
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
-                await provider.send("eth_requestAccounts", []);
-                const signer = provider.getSigner();
-                const assetTokenizationContract = new ethers.Contract(contractAddress, abi, signer);
+                await provider.send("eth_requestAccounts", []); // Demande à MetaMask l'autorisation de se connecter
+                const signer = provider.getSigner(); 
+                
+                const contract = new ethers.Contract(contractAddress, abi, signer);
     
-                const transaction = await assetTokenizationContract.createToken("NomDuToken", "SYMBOL");
+                
+                const transaction = await contract.createToken("Projet 4 ", "ALYRA", {
+                    gasLimit: "1000000" // J'ai fixé ici le gaz limit car quand j'appelais ma fonction, il n'arrivait pas à estimer le cout en gaz. La valeur 100000 est arbitraire ici. 
+                });
                 await transaction.wait();
     
-                alert("Token créé avec succès !");
+                console.log("Token créé avec succès!");
             } catch (error) {
                 console.error('Erreur lors de la création du token:', error);
-                alert("Erreur lors de la création du token.");
             }
         } else {
-            alert("Veuillez installer MetaMask pour utiliser cette fonctionnalité.");
+            console.log("Veuillez installer MetaMask pour utiliser cette fonctionnalité.");
         }
-    };
+    }
     
 
     return (

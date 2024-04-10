@@ -41,7 +41,6 @@ async function main() {
   //On récupere ici toutes nos adresses :
   const complianceAddress = compliance.target; 
   const tokenRegistryAddress = tokenRegistry.target; 
-  const tokenImplementationAddress = "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199";
 
   // Deploy AssetTokenization, dépend de IdentityRegistry, Compliance, et TokenRegistry
   const AssetTokenization = await ethers.getContractFactory("AssetTokenization");

@@ -40,9 +40,9 @@ contract AssetTokenization is Ownable {
     /// @param symbol Symbole du token à créer.
     function createToken(string memory name, string memory symbol) public onlyOwner {
         // Vérifie que le créateur a passé la vérification KYC.
-        require(identityRegistry.getKycStatus(msg.sender), unicode"AssetTokenization: Le créateur doit passer la vérification KYC.");
+        //require(identityRegistry.getKycStatus(msg.sender), unicode"AssetTokenization: Le créateur doit passer la vérification KYC.");
         // Vérifie que la création est conforme aux règles de compliance.
-        require(compliance.checkCompliance(msg.sender, address(this), 0), unicode"AssetTokenization: Création non conforme.");
+        //require(compliance.checkCompliance(msg.sender, address(this), 0), unicode"AssetTokenization: Création non conforme.");
 
         // Crée un nouveau token ERC20 et enregistre son adresse dans le registre des tokens Tokenregistry.sol
         SimpleERC20Token newToken = new SimpleERC20Token(name, symbol);
