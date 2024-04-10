@@ -21,3 +21,56 @@
 .alpine {
   width: 300px;
 }
+
+.investButton {
+  font-size: 1.2rem; 
+  padding: 10px 20px; 
+  margin: 10px 0; 
+  background-color: #4caf50; 
+  color: white; 
+  border: none; 
+  cursor: pointer; 
+  display: block; 
+  text-align: center; 
+}
+
+.cardContent {
+  text-align: right; 
+  padding: 10px; 
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+}
+
+.createTokenButton {
+  padding: 10px 20px;
+  background-color: #4CAF50; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px;
+}
+
+.createTokenButton:hover {
+  background-color: #45a049;
+}
+
+.createTokenButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.marchandDeBiensContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh; 
+  width: 100%; 
+  text-align: center;
+}

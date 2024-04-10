@@ -3,7 +3,7 @@
 import Menu from '@/components/Menu'
 import { useState } from 'react'
 import styles from "../page.module.css";
-const menuItems = ['Market place', 'Defi', 'Mon Dashboard', 'Marché secondaire']
+const menuItems = ['Market place', 'Defi', 'Marchand de bien', 'Marché secondaire']
 const leftMenuItems = ['Earn', 'Colletarize', 'Borrow']
 
 const cards = [{ title: '', image: ''}, { title: '', image: ''}, { title: '', image: ''}]

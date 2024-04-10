@@ -27,3 +27,9 @@
 .subtitle {
     font-size: 12px
 }
+
+.cardButtonContainer {
+    display: flex;
+    justify-content: flex-end; /* Aligner à droite */
+    padding: 10px; /* Ajustez selon vos besoins */
+}
