@@ -33,7 +33,7 @@ contract TokenRegistry is Ownable {
     /// @param _name Le nom du token.
     /// @param _symbol Le symbole du token.
     /// @param _tokenAddress L'adresse du contrat du token
-    function registerToken(string memory _name, string memory _symbol, address _tokenAddress) external onlyOwner {
+    function registerToken(string memory _name, string memory _symbol, address _tokenAddress) external {
         require(_tokenAddress != address(0), unicode"TokenRegistry: adresse du token ne peut pas être l'adresse zéro.");
         require(tokenIndex[_tokenAddress] == 0, unicode"TokenRegistry: token déjà enregistré.");
 

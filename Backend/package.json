@@ -22,7 +22,7 @@
     "@onchain-id/solidity": "^1.0.0",
     "@openzeppelin/contracts": "^5.0.2",
     "dotenv": "^16.4.5",
-    "ethers": "^5.7.2"
+    "ethers": "^6.11.1"
   },
   "name": "backend",
   "description": "This project demonstrates a basic Hardhat use case. It comes with a contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.",

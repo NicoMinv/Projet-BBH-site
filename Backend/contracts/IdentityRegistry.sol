@@ -24,7 +24,11 @@ contract IdentityRegistry is Ownable {
 
 
     // On spécifie le propriétaire initial du contrat.
-    constructor(address initialOwner) Ownable(initialOwner) {}
+    constructor(address initialOwner) Ownable(initialOwner) {
+        // KYC automatique pour la personne qui déploie le contrat pour faciliter les tests. 
+        identities[initialOwner].isKycCompleted = true;
+        emit KycStatusUpdated(initialOwner, true);
+    }
 
     /// @notice Enregistre ou met à jour le statut KYC d'un utilisateur. Cette fonction nous donne le droit de KYC quelqu'un ou de lui enlever son KYC.
     /// @param user L'adresse de l'utilisateur dont le statut KYC est mis à jour.

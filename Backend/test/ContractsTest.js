@@ -1,5 +1,6 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
+const {loadFixture} = require("@nomicfoundation/hardhat-network-helpers");
 require("@nomicfoundation/hardhat-chai-matchers");
 
 // `npx hardhat test` Pour lancer les tests
@@ -67,6 +68,38 @@ describe("TokenRegistry", function () {
 });
 
 
+describe("AssetTokenization", function () {
+  let assetTokenization;
+  let tokenRegistry;
+  let compliance;
+  let identityRegistry;
+  let deployer;
+
+  beforeEach(async function () {
+    [deployer] = await ethers.getSigners();
+    const IdentityRegistry = await ethers.getContractFactory("IdentityRegistry");
+    identityRegistry = await IdentityRegistry.deploy(deployer.address);
+
+    const Compliance = await ethers.getContractFactory("Compliance");
+    compliance = await Compliance.deploy(identityRegistry.target, deployer.address);
+
+    const TokenRegistry = await ethers.getContractFactory("TokenRegistry");
+    tokenRegistry = await TokenRegistry.deploy(deployer.address);
+
+    const AssetTokenization = await ethers.getContractFactory("AssetTokenization");
+    assetTokenization = await AssetTokenization.deploy(identityRegistry.target, compliance.target, tokenRegistry.target, deployer.address);
+  });
+
+  it("Should create a new token successfully", async function () {
+    const tokenName = "Test Token";
+    const tokenSymbol = "TT";
+
+    await expect(assetTokenization.connect(deployer).createToken(tokenName, tokenSymbol))
+    .to.emit(assetTokenization, "TokenCreated")
+  });
+});
+
+  
 
 
 

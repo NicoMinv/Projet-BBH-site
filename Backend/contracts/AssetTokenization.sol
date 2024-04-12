@@ -38,7 +38,7 @@ contract AssetTokenization is Ownable {
     /// @dev Seul le propriétaire du contrat peut créer un nouveau token.
     /// @param name Nom du token à créer.
     /// @param symbol Symbole du token à créer.
-    function createToken(string memory name, string memory symbol) public onlyOwner {
+    function createToken(string memory name, string memory symbol) public {
         // Vérifie que le créateur a passé la vérification KYC.
         //require(identityRegistry.getKycStatus(msg.sender), unicode"AssetTokenization: Le créateur doit passer la vérification KYC.");
         // Vérifie que la création est conforme aux règles de compliance.

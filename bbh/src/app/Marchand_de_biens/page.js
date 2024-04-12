@@ -6,7 +6,7 @@ const abi = assetTokenization.abi;
 
 
 
-const contractAddress = "0x4516E23507F4D3FfDA0e053817263B123c3f979B"
+const contractAddress = "0x8Cd806E095dc72a930aFe831DF798dcEf2a3eDFd"
 
 const Marchand_de_biens = () => {
     const [creating, setCreating] = useState(false);
@@ -22,7 +22,7 @@ const Marchand_de_biens = () => {
                 const contract = new ethers.Contract(contractAddress, abi, signer);
     
                 
-                const transaction = await contract.createToken("Projet 4 ", "ALYRA", {
+                const transaction = await contract.createToken("", "", {
                     gasLimit: "1000000" // J'ai fixé ici le gaz limit car quand j'appelais ma fonction, il n'arrivait pas à estimer le cout en gaz. La valeur 100000 est arbitraire ici. 
                 });
                 await transaction.wait();
